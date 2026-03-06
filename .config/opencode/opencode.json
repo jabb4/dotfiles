@@ -6,13 +6,6 @@
   // Haiku for cheap background tasks (title generation, etc.)
   "small_model": "github-copilot/claude-haiku-4.5",
 
-  // Compaction: manual only — agents will ask before compacting
-  "compaction": {
-    "auto": false,
-    "prune": true,
-    "reserved": 10000
-  },
-
   // Safe defaults; tools unlocked per-agent below
   "tools": {
     "bash": true,
