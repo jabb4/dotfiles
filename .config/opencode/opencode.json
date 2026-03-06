@@ -1,0 +1,227 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Default daily driver — best quality/cost ratio for coding
+  "model": "github-copilot/claude-sonnet-4.6",
+  // Haiku for cheap background tasks (title generation, etc.)
+  "small_model": "github-copilot/claude-haiku-4.5",
+
+  // Compaction: manual only — agents will ask before compacting
+  "compaction": {
+    "auto": false,
+    "prune": true,
+    "reserved": 10000
+  },
+
+  // Safe defaults; tools unlocked per-agent below
+  "tools": {
+    "bash": true,
+    "edit": true,
+    "write": true
+  },
+  "permission": {
+    "bash": "ask",
+    "edit": "ask"
+  },
+
+  "agent": {
+    // --- PRIMARY: BUILD ---
+    // Edits files, runs tests, fixes bugs.
+    // temperature=0.2: precise, deterministic edits.
+    // Bash uses glob rules: safe read-only commands auto-allowed, destructive commands ask.
+    "build": {
+      "mode": "primary",
+      "description": "Implementation agent: edits files, runs commands, fixes tests.",
+      "model": "github-copilot/claude-sonnet-4.6",
+      "temperature": 0.2,
+      "steps": 30,
+      "prompt": "You are an implementation agent. Before writing any code:\n1. Outline your plan: which files you will change, your approach, and any risks.\n2. Ask the user if they want to compact the context window before starting (recommended for large tasks).\n3. Wait for explicit user confirmation before proceeding.\n\nWhen implementing: write minimal, focused changes. Follow existing conventions. No unnecessary comments, refactoring, or extra features beyond what was asked.\n\nAfter finishing implementation, always invoke the review subagent to check your work before reporting back to the user.",
+      "permission": {
+        "read": "allow",
+        "glob": "deny",
+        "grep": "deny",
+        "list": "deny",
+        "edit": "allow",
+        "webfetch": "ask",
+        "task": {
+          "*": "ask",
+          "explore": "allow",
+          "review": "allow"
+        },
+        "bash": {
+          "*": "ask",
+          "echo *": "allow",
+          "git status": "allow",
+          "git log *": "allow",
+          "git diff *": "allow",
+          "git blame *": "allow",
+          "git show *": "allow",
+          "git branch": "allow",
+          "rm *": "deny",
+          "rm": "deny"
+        }
+      }
+    },
+
+    // --- PRIMARY: PLAN ---
+    // Sonnet for architecture + decomposition. Read-only.
+    // temperature=0.5: balanced — precise enough for structure, open enough for good ideas.
+    "plan": {
+      "mode": "primary",
+      "description": "Architecture, decomposition, and risk analysis. Read-only.",
+      "model": "github-copilot/claude-sonnet-4.6",
+      "temperature": 0.5,
+      "steps": 14,
+      "prompt": "You are a planning agent. Think step by step. Structure your response as:\n1. Problem understanding\n2. Proposed approach\n3. Files and components affected\n4. Key risks and trade-offs\n5. Open questions\n\nBe concise. Do not implement — only plan.",
+      "tools": {
+        "bash": true,
+        "edit": false,
+        "write": false
+      },
+      "permission": {
+        "read": "allow",
+        "glob": "deny",
+        "grep": "deny",
+        "list": "deny",
+        "edit": "deny",
+        "webfetch": "ask",
+        "task": {
+          "*": "deny",
+          "explore": "allow"
+        },
+        "bash": {
+          "*": "ask",
+          "echo *": "allow",
+          "git status": "allow",
+          "git log *": "allow",
+          "git diff *": "allow",
+          "git blame *": "allow",
+          "git show *": "allow",
+          "git branch": "allow"
+        }
+      }
+    },
+
+    // --- PRIMARY: PLAN-OPUS ---
+    // Opus for hard problems: complex architecture, subtle trade-offs.
+    // temperature=0.7: more creative — lets Opus explore non-obvious solutions.
+    // Use sparingly — highest cost, highest reasoning quality.
+    "plan-opus": {
+      "mode": "primary",
+      "description": "Deep planning with Opus for hard architectural problems. Read-only.",
+      "model": "github-copilot/claude-opus-4.6",
+      "temperature": 0.7,
+      "steps": 14,
+      "prompt": "You are being used for a complex architectural decision. Think deeply. Consider multiple approaches, their trade-offs, long-term implications, scalability, and failure modes. Be thorough but structured. Do not implement — only plan.",
+      "tools": {
+        "bash": true,
+        "edit": false,
+        "write": false
+      },
+      "permission": {
+        "read": "allow",
+        "glob": "deny",
+        "grep": "deny",
+        "list": "deny",
+        "edit": "deny",
+        "webfetch": "ask",
+        "task": {
+          "*": "deny",
+          "explore": "allow"
+        },
+        "bash": {
+          "*": "ask",
+          "echo *": "allow",
+          "git status": "allow",
+          "git log *": "allow",
+          "git diff *": "allow",
+          "git blame *": "allow",
+          "git show *": "allow",
+          "git branch": "allow"
+        }
+      }
+    },
+
+    // --- PRIMARY + SUBAGENT: REVIEW ---
+    // mode=all: usable manually via Tab, or invoked automatically by build after implementation.
+    // temperature=0.1: strict and consistent — no creative leniency in a reviewer.
+    // Read-only — produces a report, never modifies files.
+    "review": {
+      "mode": "subagent",
+      "description": "Code review: correctness, security, edge cases, and quality.",
+      "model": "github-copilot/claude-sonnet-4.6",
+      "temperature": 0.1,
+      "steps": 16,
+      "prompt": "You are a strict code reviewer. Be critical and thorough. For every change examine:\n- Correctness and logic errors\n- Security vulnerabilities (injection, auth bypasses, data exposure)\n- Edge cases and error handling\n- Performance implications\n- Code quality and maintainability\n\nDo not approve without scrutiny. List issues with severity: critical / major / minor.",
+      "tools": {
+        "bash": true,
+        "edit": false,
+        "write": false
+      },
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "webfetch": "allow",
+        "task": {
+          "*": "deny",
+          "explore": "allow"
+        },
+        "bash": {
+          "*": "ask",
+          "echo *": "allow",
+          "git status": "allow",
+          "git diff *": "allow",
+          "git log *": "allow",
+          "git blame *": "allow",
+          "git show *": "allow"
+        }
+      }
+    },
+
+    // --- SUBAGENT: EXPLORE ---
+    // Haiku for fast, cheap repo exploration and summarization.
+    // hidden=true: keeps it out of @ autocomplete — invoked by primary agents, not manually.
+    // temperature=0.1: just reading facts, no creativity needed.
+    // No edits, no bash — pure read/search.
+    "explore": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Fast repo exploration and summarization. No edits.",
+      "model": "github-copilot/claude-haiku-4.5",
+      "temperature": 0.1,
+      "steps": 20,
+      "prompt": "You are an exploration agent. Be concise. Summarize only what is directly relevant to the user's question. No filler.",
+      "tools": {
+        "bash": true,
+        "edit": false,
+        "write": false
+      },
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "webfetch": "deny",
+        "task": {
+          "*": "deny"
+        },
+        "bash": {
+          "*": "deny",
+          "ls": "allow",
+          "ls *": "allow",
+          "cat *": "allow",
+          "echo *": "allow",
+          "find *": "allow",
+          "wc *": "allow",
+          "git status": "allow",
+          "git log *": "allow",
+          "git diff *": "allow",
+          "git blame *": "allow",
+          "git show *": "allow",
+          "git branch": "allow"
+        }
+      }
+    }
+  }
+}
