@@ -1,0 +1,12 @@
+# Whitelist: ignore everything by default, then un-ignore tracked config.
+# This keeps runtime state (sessions, cache, projects, history) out of git
+# even if Claude Code adds new state directories in the future.
+*
+
+!.gitignore
+!CLAUDE.md
+!settings.json
+!skills/
+!skills/**
+!plugins/
+!plugins/known_marketplaces.json
