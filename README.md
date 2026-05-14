@@ -1,13 +1,12 @@
 # dotfiles
 
-Personal macOS dotfiles. Managed with [GNU Stow](https://www.gnu.org/software/stow/) so files live at their real `$HOME` paths via symlinks.
+Personal dotfiles. Managed with [GNU Stow](https://www.gnu.org/software/stow/) so files live at their real `$HOME` paths via symlinks.
 
 ## What's in here
 
 - `.zshrc` — shell config (zsh + starship + conda init)
 - `.config/ghostty/` — Ghostty terminal
 - `.config/starship.toml` — prompt
-- `.config/opencode/` — opencode config
 - `.claude/` — Claude Code global config (CLAUDE.md, settings, skills, plugin marketplaces)
 
 ## Install on a fresh machine
