@@ -28,7 +28,7 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 
 # Aliases
 ## cd to Proton drive
-alias ProtonDrive="cd /Users/jacob/Library/CloudStorage/ProtonDrive-REDACTED-folder"
+alias ProtonDrive='cd "$HOME"/Library/CloudStorage/ProtonDrive-*-folder'
 
 # Start starchip (customizable prompt)
 eval "$(starship init zsh)"
