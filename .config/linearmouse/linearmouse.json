@@ -1,0 +1,83 @@
+{
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.3",
+  "schemes" : [
+    {
+      "buttons" : {
+        "mappings" : [
+          {
+            "action" : "mouse.button.left",
+            "button" : 0,
+            "command" : false,
+            "control" : true,
+            "option" : false,
+            "shift" : false
+          },
+          {
+            "action" : "mouse.wheel.scrollDown",
+            "command" : false,
+            "control" : false,
+            "option" : false,
+            "scroll" : "down",
+            "shift" : true
+          },
+          {
+            "action" : "mouse.wheel.scrollUp",
+            "command" : false,
+            "control" : false,
+            "option" : false,
+            "scroll" : "up",
+            "shift" : true
+          }
+        ]
+      },
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0xc539",
+          "productName" : "USB Receiver",
+          "vendorID" : "0x46d"
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : true
+      },
+      "scrolling" : {
+        "acceleration" : 1,
+        "distance" : 6,
+        "reverse" : {
+          "horizontal" : false,
+          "vertical" : true
+        },
+        "speed" : 0
+      }
+    },
+    {
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0xb034",
+          "productName" : "MX Master 3S",
+          "serialNumber" : "5110DD56",
+          "vendorID" : "0x46d"
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : true
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1
+        },
+        "distance" : {
+          "vertical" : "auto"
+        },
+        "reverse" : {
+          "vertical" : true
+        },
+        "speed" : {
+          "vertical" : 0
+        }
+      }
+    }
+  ]
+}
