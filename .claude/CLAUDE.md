@@ -38,14 +38,14 @@ Software engineering student at Chalmers University of Technology, Gothenburg, S
 
 ## Tools & workflow
 
+**Git:**
+- Always use the `/commit` skill for commits and pushes — never run `git commit` or `git push` directly. The skill handles Conventional Commits formatting, runs a secret scan, gates push behind a second confirmation, and refuses `--no-verify` / `--force`.
+- I'll signal when it's time to commit. Don't proactively suggest committing after edits — wait for me to ask.
 - **Shell:** zsh.
 - **Python:** conda or pip (depends on the project — ask if unclear which the project uses).
 - **Node:** pnpm.
 - **OS:** macOS (Apple Silicon). Prefer Homebrew-installed tools; watch for arch mismatches in Docker/native builds.
 
-## Installed skills
+## Dotfiles repo
 
-Two custom skills live in `~/.claude/skills/`:
-
-- **commit** — stage, commit, and push with a Conventional Commits message. Two confirmations (before commit, before push). Refuses `--no-verify` and `--force`. Trigger with `/commit` or phrases like "commit my changes", "ship this".
-- **secrets** — scan working tree for leaked credentials (AWS/GitHub/Stripe keys, private keys, suspicious assignments to `password`/`token`/`api_key`, sensitive filenames not in `.gitignore`). Trigger with `/secrets`, or invoked automatically as a pre-stage step by `/commit`.
+My Claude config (`~/.claude/CLAUDE.md`, `settings.json`, `skills/`, `plugins/known_marketplaces.json`) is symlinked from `~/dotfiles` and tracked in git. Edits flow through the symlinks automatically — no copying needed. New skills land in the repo automatically since `~/.claude/skills/` is a folded symlink to `~/dotfiles/.claude/skills/`. When you edit these files you need to remind me to commit and push that repo.
