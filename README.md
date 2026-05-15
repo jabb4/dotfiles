@@ -5,7 +5,10 @@ Personal dotfiles. Managed with [GNU Stow](https://www.gnu.org/software/stow/) s
 ## What's in here
 
 - `.zshrc` — shell config (zsh + starship + conda init)
+- `.gitconfig` — top-level git config
+- `.config/git/` — git includes (ignore, attributes, etc.)
 - `.config/ghostty/` — Ghostty terminal
+- `.config/linearmouse/` — LinearMouse pointer settings
 - `.config/starship.toml` — prompt
 - `.claude/` — Claude Code global config (CLAUDE.md, settings, skills, plugin marketplaces)
 
