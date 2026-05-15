@@ -24,6 +24,19 @@ If the working tree is clean, say so and stop. Don't create an empty commit.
 
 If `HEAD` is detached, or there's an active merge/rebase/cherry-pick, refuse and tell the user to resolve their git state first — committing on top of that is a footgun.
 
+### 1b. Branch guardrail (main/master)
+
+If the current branch is `main` or `master`, **stop immediately** and ask via the `AskUserQuestion` tool before doing anything else — no staging, no message drafting, no secret scan. Phrase it as something like:
+
+> You are about to commit directly to `main`. Continue?
+>
+> - "Yes, commit to main"
+> - "Abort"
+
+Do not proceed past this step until the user picks "Yes". If they abort, stop the workflow cleanly — nothing has been staged or committed yet, so there's nothing to undo. A freeform "yes" / "commit and push" from the user **does not** satisfy this gate; the question must be asked and answered every time the branch is `main` or `master`.
+
+This is separate from the per-message confirmation in step 6 and the pre-push confirmation in step 9 — all three gates fire when committing to main.
+
 ### 2. Decide what to stage
 
 If the **index already has staged changes**, the user has curated them — commit exactly that and tell them which unstaged files you're leaving behind. Don't quietly fold the rest in.
