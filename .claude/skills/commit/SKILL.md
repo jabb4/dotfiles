@@ -86,14 +86,22 @@ Follow Conventional Commits 1.0 (https://www.conventionalcommits.org/en/v1.0.0/)
 
 **Match the repo's style**: look at the last ~10 commits. If they have a particular convention (always-lowercase, no scopes, ticket prefixes, specific phrasing), match it as long as it's compatible with Conventional Commits.
 
-### 6. Show the plan, wait for confirmation
+### 6. Show the plan, ask for confirmation
 
 Before committing, show the user:
 
 - Which files are being staged (per commit, if splitting)
-- The exact commit message(s) you'll use
+- The exact commit message(s) you'll use, including subject and any body
 
-Then wait. If the user edits the message, use their version verbatim. If they say go, proceed to step 7.
+Then **always** ask via the `AskUserQuestion` tool — never assume a prior "go" covers the message. Phrase it as a selection question about the proposed message itself, e.g. "Commit with this message?" with options like:
+
+- "Yes, commit as proposed"
+- "Edit the message" (user supplies a replacement)
+- "Cancel"
+
+Do not run `git commit` until this question is answered. A freeform "yes" or "push" from the user does **not** satisfy this gate — the question must be asked and answered. If the user picks "Edit", use their version verbatim and re-confirm. If they cancel, stop the workflow.
+
+This applies on every invocation, including when the user said "commit and push" up front, when only one file changed, or when the change looks trivial. The point is that the user sees the exact wording before it lands.
 
 ### 7. Commit
 
