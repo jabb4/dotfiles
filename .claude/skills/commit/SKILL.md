@@ -65,6 +65,14 @@ The user prefers this over a single sprawling commit because clean history makes
 
 ### 5. Compose the message
 
+**Ground every claim in the staged diff — not in your conversational mental model of what you built.** Before drafting a single word:
+
+1. **Re-read `git diff --staged` right now**, even though you already ran it in step 1. Files routinely change between those two moments — a linter reformats, the user edits, an intermediate tool call lands. The state you saw earlier is stale; the staged content *as of this instant* is what the message must describe.
+2. **Every concrete claim in the body must point to a visible diff hunk.** Counts (layers, files, endpoints), specific behaviors, before/after framing, design choices — if you can't put your finger on the lines that justify the sentence, you're hallucinating from memory. When conversation history says one thing and the diff says another, **the diff wins.**
+3. **Final-pass sanity check.** Before showing the message in step 6, walk each sentence of your draft body and identify the diff line(s) it refers to. Sentences with no corresponding hunk get deleted or rewritten.
+
+This matters even for "obvious" commits: in a long session, what you built early may have been replaced, refactored, or partially reverted by the time you go to commit. Composing from memory instead of the diff is the #1 way commit messages drift from reality.
+
 Follow Conventional Commits 1.0 (https://www.conventionalcommits.org/en/v1.0.0/):
 
 ```
@@ -91,7 +99,9 @@ Follow Conventional Commits 1.0 (https://www.conventionalcommits.org/en/v1.0.0/)
 
 **Subject**: imperative mood ("add login", not "added login" or "adds login"), lowercase, no trailing period, ideally ≤72 characters. Focus on what the change accomplishes, not the mechanics.
 
-**Body** (optional, blank-line separated): only write a body when the *why* isn't obvious from the diff. When you write one, explain motivation, trade-offs, or non-obvious constraints — not what the diff shows. Wrap around 72 chars.
+**Body** (optional, blank-line separated): **max 2 sentences, ideally 0 or 1.** Keep it SIMPLE — a one-line plain-English summary of what's added/changed, not a technical writeup. Skip the body entirely if the subject is self-explanatory. **Don't** enumerate files, list config details, explain implementation, describe trade-offs, justify design choices, or write paragraphs about gotchas. If the why genuinely needs more than 2 sentences, the commit is doing too much — split it. Wrap around 72 chars.
+
+The bar for including a body is "would a human reading the subject still wonder what this changes" — not "is there interesting context I could share." Most commits should have no body at all.
 
 **Breaking changes**: append `!` after the type/scope and include a `BREAKING CHANGE: <description>` footer. Example: `feat(api)!: drop /v1 endpoints`.
 
