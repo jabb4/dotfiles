@@ -42,7 +42,8 @@ The test: Every changed line should trace directly to the user's request.
 
 ### Workflow
 **Git:**
-- Always use the `/commit` skill for commits and pushes, never run `git commit` or `git push` directly. The skill handles Conventional Commits formatting, runs a secret scan, gates push behind a second confirmation, and refuses `--no-verify` / `--force`.
+- Always invoke commits and pushes through the `/commit` skill — don't run `git commit` or `git push` directly from a conversation turn. The skill handles Conventional Commits formatting, runs a secret scan, gates push behind a second confirmation, and refuses `--no-verify` / `--force`.
+- The `/commit` skill itself runs `git commit` and `git push` internally as part of its workflow — those calls are the authorized path, not a violation of the rule above. Don't block them.
 - I'll signal when it's time to commit. Don't proactively suggest committing after edits — wait for me to ask.
 
 ## Guardrails
