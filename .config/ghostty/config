@@ -3,8 +3,6 @@ font-size = 15
 window-padding-x = 10
 window-padding-y = 0
 
-window-decoration = true
-
 theme = Catppuccin Mocha
 
 adjust-cell-height=35%
@@ -17,8 +15,10 @@ copy-on-select = clipboard
 
 window-padding-balance = true
 
-macos-titlebar-style = transparent
+macos-titlebar-style = hidden
 
 background-opacity = 1
 
 quit-after-last-window-closed = true
+
+resize-overlay = never
