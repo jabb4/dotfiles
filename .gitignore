@@ -5,3 +5,9 @@
 
 # Claude Code per-project state — auto-created when running Claude in this repo
 .claude/settings.local.json
+
+# Karabiner-Elements runtime files — only karabiner.json is tracked.
+# If the dotfiles karabiner dir ever ends up directory-folded again, this
+# stops the auto-backups + asset library from getting committed.
+.config/karabiner/automatic_backups/
+.config/karabiner/assets/

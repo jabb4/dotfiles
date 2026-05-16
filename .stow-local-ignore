@@ -2,5 +2,7 @@
 \.gitignore
 \.stow-local-ignore
 README\.md
+/CLAUDE\.md
 install\.sh
+Brewfile
 settings\.local\.json

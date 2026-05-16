@@ -8,10 +8,8 @@ if ! command -v brew >/dev/null 2>&1; then
     exit 1
 fi
 
-if ! command -v stow >/dev/null 2>&1; then
-    echo "Installing GNU Stow..."
-    brew install stow
-fi
+echo "Installing packages from Brewfile..."
+brew bundle --file="$DOTFILES_DIR/Brewfile"
 
 echo "Linking dotfiles from $DOTFILES_DIR into $HOME..."
 cd "$DOTFILES_DIR"
