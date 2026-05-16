@@ -10,7 +10,12 @@ Personal dotfiles. Managed with [GNU Stow](https://www.gnu.org/software/stow/) s
 - `.config/ghostty/` — Ghostty terminal
 - `.config/linearmouse/` — LinearMouse pointer settings
 - `.config/starship.toml` — prompt
+- `.config/aerospace/` — [AeroSpace](https://github.com/nikitabobko/AeroSpace) tiling window manager
+- `.config/borders/` — [JankyBorders](https://github.com/FelixKratz/JankyBorders) focused-window border
+- `.config/AutoRaise/` — [AutoRaise](https://github.com/sbmpost/AutoRaise) focus-follows-mouse
+- `.config/karabiner/` — [Karabiner-Elements](https://karabiner-elements.pqrs.org/) caps-lock → Hyper key (so AeroSpace can bind `hyper-N` without breaking Swedish-layout `alt+N` characters)
 - `.claude/` — Claude Code global config (CLAUDE.md, settings, skills, plugin marketplaces)
+- `Brewfile` — Homebrew formulas, casks, and taps for everything configured here
 
 ## Install on a fresh machine
 
@@ -20,7 +25,15 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-The script installs Stow via Homebrew if missing, then runs `stow . -t "$HOME"` to symlink everything into place. Re-run after pulling updates.
+The script runs `brew bundle` against the [`Brewfile`](Brewfile) (installing anything missing, no-op for what's already there), then runs `stow . -t "$HOME"` to symlink everything into place. Re-run after pulling updates or editing the `Brewfile`.
+
+To install just the brew packages without re-linking:
+
+```sh
+brew bundle --file=~/dotfiles/Brewfile
+```
+
+To see what would change without installing: `brew bundle check --file=~/dotfiles/Brewfile`.
 
 ## Adding a new dotfile
 
