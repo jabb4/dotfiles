@@ -1,6 +1,6 @@
 ---
 name: commit
-description: "Stage, commit, and push the current branch's uncommitted changes with a Conventional Commits message. Triggers on /commit and on phrases like 'commit my changes', 'commit and push', 'ship this', or any time the user wants to turn their working-tree edits into a commit and send it to the remote. Generates a concise Conventional Commits message from the diff (type-paren-scope colon subject form), suggests splitting unrelated changes into separate commits, gates commit and push behind user confirmations, warns when pushing to main/master, and never uses --no-verify or --force."
+description: "Stage, commit, and push the current branch's uncommitted changes with a Conventional Commits message. Triggers on /commit and on phrases like 'commit my changes', 'commit and push', 'ship this', or any time the user wants to turn their working-tree edits into a commit and send it to the remote. Generates a concise Conventional Commits message from the diff (type-paren-scope colon subject form), suggests splitting unrelated changes into separate commits, gates commit and push behind user confirmations, refuses to push to main/master (user must push manually), and never uses --no-verify or --force."
 ---
 
 Turn the working tree into a clean Conventional Commits commit (or several) and push it to the remote. The user is delegating the analysis and the typing; they confirm the call before anything reaches the remote.
@@ -35,7 +35,7 @@ If the current branch is `main` or `master`, **stop immediately** and ask via th
 
 Do not proceed past this step until the user picks "Yes". If they abort, stop the workflow cleanly — nothing has been staged or committed yet, so there's nothing to undo. A freeform "yes" / "commit and push" from the user **does not** satisfy this gate; the question must be asked and answered every time the branch is `main` or `master`.
 
-This is separate from the per-message confirmation in step 6 and the pre-push confirmation in step 9 — all three gates fire when committing to main.
+This is separate from the per-message confirmation in step 6. Note: if the user confirms committing to `main`/`master`, the skill will still **refuse to push** in step 8 — the user has to run `git push` themselves.
 
 ### 2. Decide what to stage
 
@@ -150,7 +150,7 @@ Run `git status` after each commit to confirm it landed.
 Before pushing, verify:
 
 - The branch tracks a remote. If `git rev-parse --abbrev-ref @{u}` fails, you'll need `git push -u origin <branch>` — surface this in the next confirmation so the user isn't surprised.
-- The current branch is not `main` or `master`. If it is, **warn prominently** and ask the user to explicitly confirm the direct-to-main push. Don't proceed without that explicit "yes" — direct commits to main are usually a mistake.
+- **The current branch is not `main` or `master`.** If it is, **stop here — this skill does not push to `main`/`master`**, even if the user asked for "commit and push" up front. The commit has already landed locally; tell the user that and that they need to run `git push` themselves if they want it published. Do not ask for confirmation, do not run `git push`, do not suggest a workaround. Skip step 9.
 
 ### 9. Confirm the push
 
@@ -170,6 +170,7 @@ Wait for the user to confirm. Then push.
 - **Pre-commit hook failure**: fix the cause, re-stage, new commit. Never `--no-verify`.
 - **Non-fast-forward push**: never force-push; suggest `git pull --rebase`.
 - **No remote configured**: tell the user the commit was made locally but there's no remote to push to. Don't try to add one yourself.
+- **On `main`/`master`**: commit only — never push from this skill. The user pushes manually if they want to publish.
 
 ## Examples
 
