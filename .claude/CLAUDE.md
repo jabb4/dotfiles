@@ -35,7 +35,9 @@ When your changes create orphans:
 The test: Every changed line should trace directly to the user's request.
 
 ### Style
-- No inline comments. Code should be self-explanatory; if it isn't, the fix is clearer naming or structure, not a comment.
+- **Default to zero comments.** Code should be self-explanatory; if it isn't, the fix is clearer naming or structure, not a comment.
+- **If a comment is unavoidable, 1 line max.** Multi-line = signal that the explanation belongs in project docs (README/CLAUDE.md) or the commit message — not in code. Don't use code comments to *teach* the reader about a concept; that's what docs are for.
+- **Check docs first.** Before writing a code comment, check whether the project's README/CLAUDE.md already cover the rationale. If yes → either no comment, or a one-line pointer (`# See README "Section".`). Never duplicate doc content into code.
 - Follow the API documentation standard specified for the project.
 - Format with the project's formatter after edits if one exists.
 - Use the project's specified linter after edits if one exists.
@@ -57,10 +59,10 @@ Pause and let me do them manually if needed.
 - Skipping safety checks: `--no-verify`, disabling type checks / tests / linters
   to silence failures (fix the failure instead).
 - Alter files outside the current git repo / project
-- Global or system installs (`npm i -g`, `brew install`, `pip install` outside a venv, etc.).
+- Global or system installs (`npm i -g`, `brew install`, `pip install` outside a venv, etc.). If the project has a dependency manifest (Brewfile, package.json, pyproject.toml, requirements.txt, etc.), add the dependency to that file and **stop** — let me run the install command myself. If no manifest exists, ask first. An explicit "install X" request from me does **not** override this — adding to the manifest *is* the install action you should take.
 - Anything touching a live production environment.
 
-Ask before continiuing:
+Ask before continuing:
 - Database migrations
 - Killing processes
 
