@@ -12,6 +12,7 @@ brew "starship"                   # .config/starship.toml + .zshrc prompt
 brew "zsh-syntax-highlighting"    # sourced in .zshrc
 brew "zsh-autosuggestions"        # sourced in .zshrc
 brew "felixkratz/formulae/borders" # .config/borders/ (JankyBorders)
+brew "tmux"                       # terminal multiplexer (defaults; no .tmux.conf)
 
 # GUI apps
 cask "ghostty"                    # .config/ghostty/
