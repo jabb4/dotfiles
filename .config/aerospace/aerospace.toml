@@ -6,7 +6,7 @@ config-version = 2
 # Start borders + AutoRaise alongside AeroSpace.
 # `exec-and-forget` runs the command without blocking AeroSpace startup.
 after-startup-command = [
-    'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=0',
+    'exec-and-forget borders active_color=0xffb7bdf8 inactive_color=0xff494d64 width=0',
     'exec-and-forget /Users/jacob/.config/AutoRaise/launch.sh',
 ]
 
@@ -58,6 +58,10 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-name-regex-substring = 'discord'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'org.prismlauncher.PrismLauncher'
+run = 'move-node-to-workspace 4'
 
 # Workspaces 1-4 prefer the LG ultrawide (when plugged in), fall back to the
 # built-in laptop display when it's not. Workspace 5 is always pinned to the
