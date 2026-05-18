@@ -12,10 +12,6 @@ Personal dotfiles. Managed with [GNU Stow](https://www.gnu.org/software/stow/) s
 - `.config/linearmouse/` — LinearMouse pointer settings
 - `.config/starship.toml` — prompt
 - `.config/tmux/` — tmux config (`tmux.conf`, `tmux.reset.conf`); plugins managed by [tpm](https://github.com/tmux-plugins/tpm), see install.sh
-- `.config/aerospace/` — [AeroSpace](https://github.com/nikitabobko/AeroSpace) tiling window manager
-- `.config/borders/` — [JankyBorders](https://github.com/FelixKratz/JankyBorders) focused-window border
-- `.config/AutoRaise/` — [AutoRaise](https://github.com/sbmpost/AutoRaise) focus-follows-mouse
-- `.config/karabiner/` — [Karabiner-Elements](https://karabiner-elements.pqrs.org/) caps-lock → Hyper key (so AeroSpace can bind `hyper-N` without breaking Swedish-layout `alt+N` characters)
 - `.claude/` — Claude Code global config (CLAUDE.md, settings, skills, plugin marketplaces)
 - `Brewfile` — central registry of every Homebrew package (formula/cask/tap) the machine should have, not just things this repo configures
 
@@ -30,7 +26,7 @@ cd ~/dotfiles
 The script:
 
 1. **`brew bundle`** against the [`Brewfile`](Brewfile) — installs anything missing, no-op for what's already there.
-2. **Pre-creates "no-fold" directories** (`~/.config/tmux`, `~/.config/karabiner`, `~/.claude`). See [Layout: NO_FOLD_DIRS](#layout-no_fold_dirs) below.
+2. **Pre-creates "no-fold" directories** (`~/.config/tmux`, `~/.claude`). See [Layout: NO_FOLD_DIRS](#layout-no_fold_dirs) below.
 3. **`stow --restow`** — symlinks everything into `$HOME`.
 4. **tpm bootstrap** — clones [tmux plugin manager](https://github.com/tmux-plugins/tpm) and installs every `@plugin` declared in `tmux.conf`.
 
@@ -42,7 +38,7 @@ By default Stow "tree-folds" a directory: if `~/.config/foo` doesn't exist, Stow
 
 `install.sh` works around this by pre-creating any directory listed in `NO_FOLD_DIRS` before running Stow. With the parent already present, Stow falls back to file-level symlinks, leaving room for runtime subdirectories to live in `$HOME` where they belong.
 
-Add an entry to `NO_FOLD_DIRS` (in `install.sh`) whenever you track a tool that writes runtime files alongside its config. Current entries: tmux (tpm plugins), karabiner (auto-backups, assets), `.claude` (per-project state, settings).
+Add an entry to `NO_FOLD_DIRS` (in `install.sh`) whenever you track a tool that writes runtime files alongside its config. Current entries: tmux (tpm plugins), `.claude` (per-project state, settings).
 
 ### Running parts of the install in isolation
 

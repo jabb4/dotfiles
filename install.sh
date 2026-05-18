@@ -22,7 +22,6 @@ fi
 # Pre-create to prevent Stow tree-folding — see README "Layout: NO_FOLD_DIRS".
 NO_FOLD_DIRS=(
     "$HOME/.config/tmux"      # tpm plugins
-    "$HOME/.config/karabiner" # auto-backups, assets
     "$HOME/.claude"           # per-project state, settings
 )
 for dir in "${NO_FOLD_DIRS[@]}"; do
