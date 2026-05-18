@@ -1,5 +1,4 @@
 # Misc settings
-setopt autocd              # change directory just by typing its name
 setopt interactivecomments # allow comments in interactive mode
 setopt magicequalsubst     # filename expansion for `anything=expression` args
 setopt nonomatch           # hide error if a glob has no match
@@ -50,6 +49,9 @@ conda() {
 
 # Starship prompt
 eval "$(starship init zsh)"
+
+# zoxide — replaces `cd` with frecency-aware jump; `cdi` is interactive picker.
+eval "$(zoxide init zsh --cmd cd)"
 
 # Plugins — MUST be sourced last. zsh-syntax-highlighting hooks ZLE and other
 # .zshrc content can override its hooks if loaded earlier.
