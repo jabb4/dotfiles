@@ -39,6 +39,7 @@ brew "python"                     # fallback if miniconda is removed
 brew "sops"
 brew "talosctl"
 brew "typst"                      # markup-based typesetting → PDF
+brew "uv"                         # fast Python package manager (Astral)
 
 # CLI — security / embedded
 brew "gitleaks"                   # audit git repos for secrets
@@ -79,6 +80,7 @@ cask "gcc-arm-embedded"           # ARM bare-metal GCC toolchain
 cask "github"                     # GitHub Desktop
 cask "intellij-idea"
 cask "orbstack"
+cask "raspberry-pi-imager"
 cask "temurin@21"
 cask "temurin@25"
 cask "termius"
@@ -91,6 +93,7 @@ cask "obsidian"
 cask "proton-drive"
 
 # GUI — gaming
+cask "nvidia-geforce-now"
 cask "prismlauncher"
 cask "steam"
 
@@ -114,6 +117,7 @@ cask "veracrypt"
 cask "yubico-authenticator"
 
 # GUI — system tools
+cask "aldente"                    # battery charge limiter
 cask "keyboard-maestro"
 cask "raycast"
 cask "tailscale-app"
