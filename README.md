@@ -17,7 +17,7 @@ Personal dotfiles. Managed with [GNU Stow](https://www.gnu.org/software/stow/) s
 - `.config/AutoRaise/` — [AutoRaise](https://github.com/sbmpost/AutoRaise) focus-follows-mouse
 - `.config/karabiner/` — [Karabiner-Elements](https://karabiner-elements.pqrs.org/) caps-lock → Hyper key (so AeroSpace can bind `hyper-N` without breaking Swedish-layout `alt+N` characters)
 - `.claude/` — Claude Code global config (CLAUDE.md, settings, skills, plugin marketplaces)
-- `Brewfile` — Homebrew formulas, casks, and taps for everything configured here
+- `Brewfile` — central registry of every Homebrew package (formula/cask/tap) the machine should have, not just things this repo configures
 
 ## Install on a fresh machine
 
@@ -83,6 +83,22 @@ If the tool writes runtime files into its config directory (plugin caches, sessi
 
 - **Existing file at the target path**: Stow refuses to overwrite a real file. If `~/.foorc` already exists as a regular file, `mv` it into the repo first, then run `./install.sh`.
 - **Atomic-replace tools**: some apps rewrite config by creating a new file and renaming it over the old, which replaces the symlink with a regular file. If a config stops syncing, `mv` it back into the repo and re-run `./install.sh`.
+
+## Adding a new program
+
+Every program installed on this machine — CLI tool, GUI app, toolchain — goes through the [`Brewfile`](Brewfile). That's the single place to look to see what should be on a fresh machine, and `./install.sh` is the single command to reconcile it. Anything installed off-channel (`curl | sh`, drag-installer, `npm install -g`, vendor installer) won't survive a rebuild and won't show up in audits.
+
+Add a line, then re-run the installer:
+
+```sh
+echo 'brew "ripgrep"' >> Brewfile      # CLI formula
+echo 'cask "obsidian"' >> Brewfile     # GUI cask
+./install.sh
+```
+
+Group the line under a relevant comment section (`# CLI — dev`, `# GUI — browsers`, …) and add a brief `# purpose` comment only when the package name isn't self-explanatory. Don't run `brew install` / `brew install --cask` directly — the Brewfile line *is* the install.
+
+If a program isn't packaged in Homebrew, or the cask is known-broken / the vendor installer fights cask updates (e.g. exam-locked software, Adobe-style installers), keep a short note somewhere explaining why so a future reader doesn't try to "fix" it.
 
 ## Uninstall
 

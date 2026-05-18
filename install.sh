@@ -8,8 +8,16 @@ if ! command -v brew >/dev/null 2>&1; then
     exit 1
 fi
 
+brew analytics off >/dev/null
+
 echo "Installing packages from Brewfile..."
 brew bundle --file="$DOTFILES_DIR/Brewfile"
+
+# Disable conda base auto-activation so the base env doesn't slip into every shell.
+CONDA_BIN="/opt/homebrew/Caskroom/miniconda/base/bin/conda"
+if [ -x "$CONDA_BIN" ]; then
+    "$CONDA_BIN" config --set auto_activate false
+fi
 
 # Pre-create to prevent Stow tree-folding — see README "Layout: NO_FOLD_DIRS".
 NO_FOLD_DIRS=(
