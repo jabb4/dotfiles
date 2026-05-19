@@ -3,6 +3,10 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# ============================================================================
+# Install programs
+# ============================================================================
+
 if ! command -v brew >/dev/null 2>&1; then
     echo "error: Homebrew not found. Install it from https://brew.sh first." >&2
     exit 1
@@ -13,11 +17,9 @@ brew analytics off >/dev/null
 echo "Installing packages from Brewfile..."
 brew bundle --file="$DOTFILES_DIR/Brewfile"
 
-# Disable conda base auto-activation so the base env doesn't slip into every shell.
-CONDA_BIN="/opt/homebrew/Caskroom/miniconda/base/bin/conda"
-if [ -x "$CONDA_BIN" ]; then
-    "$CONDA_BIN" config --set auto_activate false
-fi
+# ============================================================================
+# Link dotfiles
+# ============================================================================
 
 # Pre-create to prevent Stow tree-folding — see README "Layout: NO_FOLD_DIRS".
 NO_FOLD_DIRS=(
@@ -32,26 +34,38 @@ for dir in "${NO_FOLD_DIRS[@]}"; do
     mkdir -p "$dir"
 done
 
-
 echo "Linking dotfiles from $DOTFILES_DIR into $HOME..."
 cd "$DOTFILES_DIR"
 stow --restow --target="$HOME" .
 
-# tpm bootstrap: clone on first run, then install plugins declared in tmux.conf.
+# ============================================================================
+# Per-program post-install setup
+# ============================================================================
+
+# --- Miniconda --------------------------------------------------------------
+# Disable conda base auto-activation so the base env doesn't slip into every shell.
+CONDA_BIN="/opt/homebrew/Caskroom/miniconda/base/bin/conda"
+if [ -x "$CONDA_BIN" ]; then
+    "$CONDA_BIN" config --set auto_activate false
+fi
+
+# --- tmux (tpm + plugins) ---------------------------------------------------
 TPM_DIR="$HOME/.config/tmux/plugins/tpm"
 if [ ! -d "$TPM_DIR" ]; then
     echo "Cloning tpm into $TPM_DIR..."
     git clone --depth=1 https://github.com/tmux-plugins/tpm "$TPM_DIR"
 fi
 echo "Installing/updating tmux plugins..."
-# tpm queries the tmux server's env, not the shell — set it on the server first.
+# tpm reads from the tmux server — a sessionless server self-exits, so hold one open.
 TMUX_HAD_SERVER=no
 tmux info >/dev/null 2>&1 && TMUX_HAD_SERVER=yes
-tmux start-server
+tmux new-session -d -s tpm-bootstrap
 tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.config/tmux/plugins/"
 "$TPM_DIR/bin/install_plugins"
 if [ "$TMUX_HAD_SERVER" = "no" ]; then
     tmux kill-server 2>/dev/null || true
+else
+    tmux kill-session -t tpm-bootstrap 2>/dev/null || true
 fi
 
 echo "Done. Open a new shell to pick up changes."
