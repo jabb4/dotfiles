@@ -22,3 +22,36 @@ background-opacity = 1
 quit-after-last-window-closed = true
 
 resize-overlay = never
+
+
+# ── tmux via Ghostty (skip the prefix) ──────────────────
+
+# Cmd+1..9 → tmux window select (overrides default goto_tab)
+keybind = super+digit_1=text:\x011
+keybind = super+digit_2=text:\x012
+keybind = super+digit_3=text:\x013
+keybind = super+digit_4=text:\x014
+keybind = super+digit_5=text:\x015
+keybind = super+digit_6=text:\x016
+keybind = super+digit_7=text:\x017
+keybind = super+digit_8=text:\x018
+keybind = super+digit_9=text:\x019
+
+# Cmd+T → new window
+keybind = super+t=text:\x01c
+
+# Cmd+W → kill pane
+keybind = super+w=text:\x01x
+
+# Cmd+D / Cmd+Shift+D → split h/v
+keybind = super+d=text:\x01|
+keybind = super+shift+d=text:\x01-
+
+# Cmd+Z → zoom pane
+keybind = super+z=text:\x01m
+
+# Cmd+S → tmux session picker
+keybind = super+s=text:\x01s
+
+# Cmd+Shift+N → new session
+keybind = super+shift+n=text:\x01S
