@@ -4,5 +4,5 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	name = Jacob
+	name = Jacob Bengtsson
 	email = 87302129+jabb4@users.noreply.github.com
