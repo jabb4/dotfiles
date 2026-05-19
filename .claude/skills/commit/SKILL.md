@@ -111,12 +111,26 @@ The bar for including a body is "would a human reading the subject still wonder 
 
 ### 6. Show the plan, ask for confirmation
 
-Before committing, show the user:
+**Print the plan as plain chat text BEFORE calling `AskUserQuestion`.** Do NOT pack message text into option `label`, `description`, `preview`, or `header` fields — those are short, often truncated, and `preview` only renders on focus/hover, so the user may not see it. The messages must be readable at a glance in the chat itself.
 
-- Which files are being staged (per commit, if splitting)
-- The exact commit message(s) you'll use, including subject and any body
+For each commit (even a single one), show:
 
-Then **always** ask via the `AskUserQuestion` tool — never assume a prior "go" covers the message. Phrase it as a selection question about the proposed message itself, e.g. "Commit with this message?" with options like:
+- Which files are being staged
+- The exact commit message — subject and any body — verbatim, in a fenced code block so casing and whitespace are preserved
+
+Example shape (in your chat response, NOT inside the question tool):
+
+    1) Brewfile, install.sh
+       ```
+       chore(repo): regroup Brewfile by purpose and fix tpm bootstrap
+       ```
+
+    2) .gitconfig
+       ```
+       chore(git): use full name in gitconfig
+       ```
+
+Then call `AskUserQuestion` purely as a confirmation gate. Keep option labels ≤5 words — the actual message content lives in the plain-text plan above, never inside the question:
 
 - "Yes, commit as proposed"
 - "Edit the message" (user supplies a replacement)
