@@ -9,6 +9,9 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "defaultMode": "auto",
+  "permissions": {
+    "allow": ["Bash(git commit:*)"]
+  },
   "enabledPlugins": {
     "github@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
