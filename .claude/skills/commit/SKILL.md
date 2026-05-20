@@ -111,30 +111,36 @@ The bar for including a body is "would a human reading the subject still wonder 
 
 ### 6. Show the plan, ask for confirmation
 
-**Print the plan as plain chat text BEFORE calling `AskUserQuestion`.** Do NOT pack message text into option `label`, `description`, `preview`, or `header` fields — those are short, often truncated, and `preview` only renders on focus/hover, so the user may not see it. The messages must be readable at a glance in the chat itself.
+**Embed the full commit plan inside the `question` field of `AskUserQuestion`.** Do NOT rely on plain chat text above the modal, and do NOT put message content into `label`, `description`, `header`, or `preview` — in many terminals (Ghostty + tmux in particular) the modal overlays the chat and hides everything above it, `label`/`header` are too short, and `preview` only renders on focus/hover. The `question` field is the one part of the modal guaranteed to stay on screen during selection, so the entire plan lives there.
 
-For each commit (even a single one), show:
+Format the plan as a numbered block inside `question`, one entry per commit:
 
-- Which files are being staged
-- The exact commit message — subject and any body — verbatim, in a fenced code block so casing and whitespace are preserved
+```
+Commit plan (<N> commit[s]):
 
-Example shape (in your chat response, NOT inside the question tool):
+[1] <file path(s)>
+  <subject>
+  <optional body sentence 1>
+  <optional body sentence 2>
 
-    1) Brewfile, install.sh
-       ```
-       chore(repo): regroup Brewfile by purpose and fix tpm bootstrap
-       ```
+[2] <file path(s)>
+  <subject>
 
-    2) .gitconfig
-       ```
-       chore(git): use full name in gitconfig
-       ```
+Proceed?
+```
 
-Then call `AskUserQuestion` purely as a confirmation gate. Keep option labels ≤5 words — the actual message content lives in the plain-text plan above, never inside the question:
+- Subject: exactly as it will be committed (full Conventional Commits subject line).
+- Body: indented two spaces under the subject. Keep within the 0–2 sentence cap from step 5; skip the body entirely if the subject is self-explanatory.
+- Files: comma-separated if multiple per commit; use repo-relative paths.
+- Single commit: still use `[1]` for consistency.
 
-- "Yes, commit as proposed"
-- "Edit the message" (user supplies a replacement)
+Keep option labels ≤5 words — message content never goes in option fields:
+
+- "Yes, commit"
+- "Edit messages" (user supplies a replacement)
 - "Cancel"
+
+For splits, add a "Combine into one" option when relevant.
 
 Do not run `git commit` until this question is answered. A freeform "yes" or "push" from the user does **not** satisfy this gate — the question must be asked and answered. If the user picks "Edit", use their version verbatim and re-confirm. If they cancel, stop the workflow.
 
@@ -211,15 +217,16 @@ feat(api)!: switch /reviews response shape to v2
 BREAKING CHANGE: userId is removed from the response; use clientId instead.
 ```
 
-**Split plan (show this to the user before running anything):**
+**Split plan (this is the literal `question` field content for `AskUserQuestion`):**
 
 ```
-Split into 2 commits:
+Commit plan (2 commits):
 
-1. fix(api): return 409 when a client reviews the same serving twice
-   files: src/services/reviewService.ts, src/services/reviewErrors.ts,
-          src/app/api/reviews/route.ts
+[1] src/services/reviewService.ts, src/services/reviewErrors.ts, src/app/api/reviews/route.ts
+  fix(api): return 409 when a client reviews the same serving twice
 
-2. chore(deps): bump prisma to 7.8.0
-   files: package.json, pnpm-lock.yaml
+[2] package.json, pnpm-lock.yaml
+  chore(deps): bump prisma to 7.8.0
+
+Proceed?
 ```
