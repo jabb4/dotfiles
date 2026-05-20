@@ -24,6 +24,7 @@ brew bundle --file="$DOTFILES_DIR/Brewfile"
 # Pre-create to prevent Stow tree-folding — see README "Layout: NO_FOLD_DIRS".
 NO_FOLD_DIRS=(
     "$HOME/.config/tmux"      # tpm plugins
+    "$HOME/.config/karabiner" # assets/, automatic_backups/
     "$HOME/.claude"           # per-project state, settings
 )
 for dir in "${NO_FOLD_DIRS[@]}"; do
