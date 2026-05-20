@@ -9,6 +9,7 @@ cask "claude-code"                # CLI
 brew "cmake"
 cask "dotnet-sdk"
 brew "fd"
+brew "fzf"                        # fuzzy finder
 cask "gcc-arm-embedded"
 brew "gh"
 cask "ghostty"                    # Terminal
