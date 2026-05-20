@@ -1,32 +1,33 @@
-font-size = 15
-
-window-padding-x = 10
-window-padding-y = 0
-
+# ============================================================================
+# Styling
+# ============================================================================
+font-family = "JetBrains Mono"
+font-size = 16
+window-padding-x = 20
+window-padding-y = 20
+window-padding-balance = true
+adjust-cell-height = 35%
+background-opacity = 1
+macos-titlebar-style = hidden
+resize-overlay = never
 theme = Catppuccin Mocha
-
-adjust-cell-height=35%
-
-mouse-scroll-multiplier = 2
-
 window-colorspace = "display-p3"
 
+# ============================================================================
+# Behavior
+# ============================================================================
+mouse-scroll-multiplier = 1
+mouse-hide-while-typing = true
 copy-on-select = clipboard
-
-window-padding-balance = true
-
-macos-titlebar-style = hidden
-
-background-opacity = 1
-
 quit-after-last-window-closed = true
 
-resize-overlay = never
+# ============================================================================
+# Keybindings (tmux via Ghostty — skip the prefix)
+# ============================================================================
+# Cmd + T → new tmux window
+keybind = super+t=text:\x01c
 
-
-# ── tmux via Ghostty (skip the prefix) ──────────────────
-
-# Cmd+1..9 → tmux window select (overrides default goto_tab)
+# Cmd + 1..9 → select window N
 keybind = super+digit_1=text:\x011
 keybind = super+digit_2=text:\x012
 keybind = super+digit_3=text:\x013
@@ -37,21 +38,24 @@ keybind = super+digit_7=text:\x017
 keybind = super+digit_8=text:\x018
 keybind = super+digit_9=text:\x019
 
-# Cmd+T → new window
-keybind = super+t=text:\x01c
-
-# Cmd+W → kill pane
-keybind = super+w=text:\x01x
-
-# Cmd+D / Cmd+Shift+D → split h/v
+# Cmd + D / Cmd + Shift + D → split horizontal / vertical
 keybind = super+d=text:\x01|
 keybind = super+shift+d=text:\x01-
 
-# Cmd+Z → zoom pane
-keybind = super+z=text:\x01m
+# Cmd + W → kill pane
+keybind = super+w=text:\x01x
 
-# Cmd+S → tmux session picker
+# Cmd + F → zoom pane
+keybind = super+f=text:\x01z
+
+# Cmd + Arrow → select pane in direction
+keybind = super+up=text:\x01\x1b[A
+keybind = super+down=text:\x01\x1b[B
+keybind = super+left=text:\x01\x1b[D
+keybind = super+right=text:\x01\x1b[C
+
+# Cmd + S → session picker
 keybind = super+s=text:\x01s
 
-# Cmd+Shift+N → new session
-keybind = super+shift+n=text:\x01S
+# Cmd + N → new session (name prompt)
+keybind = super+n=text:\x01S
