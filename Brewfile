@@ -15,6 +15,7 @@ cask "ghostty"                    # Terminal
 cask "github"                     # GitHub Desktop
 brew "git"
 brew "git-filter-repo"            # For deleting information from git history
+brew "gitmux"                     # git status block for tmux status bar
 brew "go"
 brew "helm"
 brew "hf"                         # Hugging Face CLI (replaces `huggingface-cli`)
@@ -23,6 +24,7 @@ cask "intellij-idea"
 brew "jq"
 brew "just"
 brew "kubeconform"                # validate Kubernetes manifests
+brew "lazygit"
 cask "miniconda"                  # conda
 brew "node"
 brew "ollama"                     # local LLM runner
@@ -31,6 +33,7 @@ cask "orbstack"
 brew "p7zip"
 brew "pipx"
 brew "pnpm"
+brew "poppler"                    # pdf reading tool
 brew "python"
 cask "raspberry-pi-imager"
 brew "ripgrep"
@@ -65,6 +68,8 @@ cask "yubico-authenticator"
 # System & productivity
 cask "aldente"                    # battery charge limiter
 cask "alt-tab"
+brew "htop"
+cask "karabiner-elements"         # keyboard remapper (caps lock → hyper)
 cask "keyboard-maestro"
 cask "linearmouse"
 brew "mole"                       # system cleanup / monitoring / health
