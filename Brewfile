@@ -55,6 +55,9 @@ brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
+# Fonts
+cask "font-jetbrains-mono-nerd-font" # Nerd-patched JetBrains Mono for editor/terminal glyphs
+
 # Security & privacy
 cask "burp-suite"
 brew "ghidra"
