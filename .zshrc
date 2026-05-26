@@ -53,6 +53,10 @@ eval "$(starship init zsh)"
 # zoxide — replaces `cd` with frecency-aware jump; `cdi` is interactive picker.
 eval "$(zoxide init zsh --cmd cd)"
 
+# Refresh tmux status (re-runs gitmux) before each prompt, so git stats update instantly.
+precmd_functions+=(__tmux_refresh_status)
+__tmux_refresh_status() { [[ -n "$TMUX" ]] && tmux refresh-client -S }
+
 # Plugins — MUST be sourced last. zsh-syntax-highlighting hooks ZLE and other
 # .zshrc content can override its hooks if loaded earlier.
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
