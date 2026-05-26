@@ -1,3 +1,36 @@
+# PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# Editor
+export EDITOR=nvim
+
+# Aliases
+alias ls='ls --color'
+alias vim='nvim'
+alias c='clear'
+alias ProtonDrive='cd "$HOME"/Library/CloudStorage/ProtonDrive-*-folder'
+
+# Suffix aliases
+alias -s md="bat"
+alias -s {png,jpeg,heic}="open"
+alias -s {mov,mp4}="open"
+alias -s yaml="bat -l yaml"
+alias -s {go,py,ts,js,c,cpp}="$EDITOR"
+
+# Vi mode: Esc → normal-mode
+bindkey -v
+KEYTIMEOUT=1
+zle-keymap-select() { zle reset-prompt }
+zle -N zle-keymap-select
+
+# Cmd+Z (Ghostty sends Ctrl-_) → ZLE undo.
+bindkey -M viins '^_' undo
+bindkey -M vicmd '^_' undo
+
+# Refresh tmux status bar every command
+precmd_functions+=(__tmux_refresh_status)
+__tmux_refresh_status() { [[ -n "$TMUX" ]] && tmux refresh-client -S }
+
 # Misc settings
 setopt interactivecomments # allow comments in interactive mode
 setopt magicequalsubst     # filename expansion for `anything=expression` args
@@ -8,7 +41,7 @@ setopt numericglobsort     # sort filenames numerically when sensible
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=50000
-SAVEHIST=50000
+SAVEHIST=$HISTSIZE
 setopt extended_history       # store timestamp + duration with each entry
 setopt hist_expire_dups_first # drop duplicates first when trimming HISTFILE
 setopt hist_ignore_dups       # don't store a command identical to the previous one
@@ -19,21 +52,18 @@ setopt hist_save_no_dups      # don't write duplicates to HISTFILE on save
 setopt inc_append_history     # append every command immediately, not on exit
 setopt share_history          # share history across running shells in real time
 
-# PATH
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+# Completion
+autoload -Uz compinit && compinit
+_comp_options+=(globdots)   # include hidden files/dirs in completion (not globbing)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' menu no
 
-# Aliases
-alias ProtonDrive='cd "$HOME"/Library/CloudStorage/ProtonDrive-*-folder'
-
-# Vi mode. Default zsh KEYTIMEOUT is 40 centiseconds (400ms), which makes the
-# Esc → normal-mode transition feel laggy. 1 = 10ms = instant.
-# The keymap-select hook redraws the prompt on mode change so Starship's
-# vicmd_symbol updates immediately mid-line.
-bindkey -v
-KEYTIMEOUT=1
-zle-keymap-select() { zle reset-prompt }
-zle -N zle-keymap-select
+# fzf-tab
+source "/opt/homebrew/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh"
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # >>> conda initialize (lazy-loaded) >>>
 # Replaces the standard `conda init` block. The eager version spawns a Python
@@ -53,9 +83,6 @@ eval "$(starship init zsh)"
 # zoxide — replaces `cd` with frecency-aware jump; `cdi` is interactive picker.
 eval "$(zoxide init zsh --cmd cd)"
 
-# Refresh tmux status (re-runs gitmux) before each prompt, so git stats update instantly.
-precmd_functions+=(__tmux_refresh_status)
-__tmux_refresh_status() { [[ -n "$TMUX" ]] && tmux refresh-client -S }
 
 # Plugins — MUST be sourced last. zsh-syntax-highlighting hooks ZLE and other
 # .zshrc content can override its hooks if loaded earlier.
