@@ -59,3 +59,6 @@ keybind = super+s=text:\x01s
 
 # Cmd + N → new session (name prompt)
 keybind = super+n=text:\x01S
+
+# Cmd + Z → zsh line-editor undo
+keybind = super+z=text:\x1f
