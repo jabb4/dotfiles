@@ -3,6 +3,7 @@
 
 # Development
 brew "age"
+brew "bat"                        # syntax-highlighting cat
 brew "clang-format"
 cask "claude"                     # desktop app
 cask "claude-code"                # CLI
@@ -10,6 +11,7 @@ brew "cmake"
 cask "dotnet-sdk"
 brew "fd"
 brew "fzf"                        # fuzzy finder
+brew "fzf-tab"                    # replace zsh completion menu with fzf
 cask "gcc-arm-embedded"
 brew "gh"
 cask "ghostty"                    # Terminal
@@ -27,6 +29,7 @@ brew "just"
 brew "kubeconform"                # validate Kubernetes manifests
 brew "lazygit"
 cask "miniconda"                  # conda
+brew "neovim"
 brew "node"
 brew "ollama"                     # local LLM runner
 brew "open-ocd"                   # on-chip debugger for embedded targets
@@ -44,6 +47,7 @@ brew "stow"                       # symlink manager
 brew "talosctl"
 cask "temurin@21"
 cask "temurin@25"
+cask "termius"                    # SSH client
 brew "tmux"
 brew "typst"
 cask "unity-hub"
@@ -63,6 +67,7 @@ cask "burp-suite"
 brew "ghidra"
 brew "gitleaks"                   # audit git repos for secrets
 brew "hashcat"
+cask "macfuse"                    # userspace filesystem; required by VeraCrypt
 cask "mullvad-vpn"
 cask "qflipper"
 cask "veracrypt"
