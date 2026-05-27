@@ -5,7 +5,8 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
 
 # Aliases
-alias ls='ls --color'
+alias ls='eza --group-directories-first --icons=auto'
+alias tree='eza --tree --level=2 --icons=auto'
 alias vim='nvim'
 alias c='clear'
 alias ProtonDrive='cd "$HOME"/Library/CloudStorage/ProtonDrive-*-folder'
@@ -52,6 +53,15 @@ setopt hist_save_no_dups      # don't write duplicates to HISTFILE on save
 setopt inc_append_history     # append every command immediately, not on exit
 setopt share_history          # share history across running shells in real time
 
+# Up/Down: cycle history entries starting with the line's first word
+for k in viins vicmd; do
+  bindkey -M $k '^[[A' history-search-backward '^[OA' history-search-backward
+  bindkey -M $k '^[[B' history-search-forward '^[OB' history-search-forward
+done
+
+# fzf keybindings
+eval "$(fzf --zsh)"
+
 # Completion
 autoload -Uz compinit && compinit
 _comp_options+=(globdots)   # include hidden files/dirs in completion (not globbing)
@@ -59,11 +69,23 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' menu no
+zstyle ':completion:*' insert-tab false   # empty-line Tab opens fzf-tab instead of inserting a tab
 
 # fzf-tab
 source "/opt/homebrew/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh"
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+# Preview: dirs → eza tree, files → bat, commands → tldr/man
+zstyle ':fzf-tab:complete:*' fzf-preview '
+if [[ -d $realpath ]]; then
+  eza --tree --level=2 --color=always --icons=auto "$realpath" | head -200
+elif [[ -f $realpath ]]; then
+  bat -n --color=always --line-range :500 "$realpath"
+elif tldr --color always "$word" 2>/dev/null; then
+  :
+elif man -w "$word" >/dev/null 2>&1; then
+  man "$word" 2>/dev/null | col -bx | bat -p -l man --color=always
+else
+  whence -v "$word" 2>/dev/null || echo "$word"
+fi'
 
 # >>> conda initialize (lazy-loaded) >>>
 # Replaces the standard `conda init` block. The eager version spawns a Python
