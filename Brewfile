@@ -79,6 +79,7 @@ cask "yubico-authenticator"
 # System & productivity
 cask "aldente"                    # battery charge limiter
 cask "alt-tab"
+brew "fastfetch"                  # system info / fetch tool
 brew "htop"
 cask "karabiner-elements"         # keyboard remapper (caps lock → hyper)
 cask "keyboard-maestro"
