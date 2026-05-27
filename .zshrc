@@ -105,6 +105,7 @@ conda() {
 eval "$(starship init zsh)"
 
 # zoxide — replaces `cd` with frecency-aware jump; `cdi` is interactive picker.
+export _ZO_DOCTOR=0
 eval "$(zoxide init zsh --cmd cd)"
 
 
