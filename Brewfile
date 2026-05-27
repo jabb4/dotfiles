@@ -11,6 +11,7 @@ brew "cmake"
 cask "dotnet-sdk"
 brew "eza"                         # modern ls replacement
 brew "fd"
+brew "ffmpeg"                     # video thumbnails for yazi
 brew "fzf"                        # fuzzy finder
 brew "fzf-tab"                    # replace zsh completion menu with fzf
 cask "gcc-arm-embedded"
@@ -56,6 +57,7 @@ cask "unity-hub"
 brew "uv"
 cask "visual-studio-code"
 brew "wget"
+brew "yazi"                       # TUI file manager
 brew "yq"
 brew "zoxide"
 brew "zsh-autosuggestions"

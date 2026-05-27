@@ -25,6 +25,7 @@ brew bundle --file="$DOTFILES_DIR/Brewfile"
 NO_FOLD_DIRS=(
     "$HOME/.config/tmux"      # tpm plugins
     "$HOME/.config/karabiner" # assets/, automatic_backups/
+    "$HOME/.config/yazi"      # ya pkg writes package.toml, packages/
     "$HOME/.claude"           # per-project state, settings
 )
 for dir in "${NO_FOLD_DIRS[@]}"; do
@@ -67,6 +68,12 @@ if [ "$TMUX_HAD_SERVER" = "no" ]; then
     tmux kill-server 2>/dev/null || true
 else
     tmux kill-session -t tpm-bootstrap 2>/dev/null || true
+fi
+
+# --- yazi (Catppuccin Mocha flavor) -----------------------------------------
+if [ ! -d "$HOME/.config/yazi/flavors/catppuccin-mocha.yazi" ]; then
+    echo "Installing yazi Catppuccin Mocha flavor..."
+    ya pkg add yazi-rs/flavors:catppuccin-mocha
 fi
 
 echo "Done. Open a new shell to pick up changes."
