@@ -9,6 +9,7 @@ cask "claude"                     # desktop app
 cask "claude-code"                # CLI
 brew "cmake"
 cask "dotnet-sdk"
+brew "eza"                         # modern ls replacement
 brew "fd"
 brew "fzf"                        # fuzzy finder
 brew "fzf-tab"                    # replace zsh completion menu with fzf
@@ -48,6 +49,7 @@ brew "talosctl"
 cask "temurin@21"
 cask "temurin@25"
 cask "termius"                    # SSH client
+brew "tlrc"                       # tldr client (simplified man-page examples)
 brew "tmux"
 brew "typst"
 cask "unity-hub"
