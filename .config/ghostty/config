@@ -62,3 +62,6 @@ keybind = super+n=text:\x01S
 
 # Cmd + Z → zsh line-editor undo
 keybind = super+z=text:\x1f
+
+# Cmd + H → fzf history search (Ctrl-R), overriding macOS Hide
+keybind = super+h=text:\x12
