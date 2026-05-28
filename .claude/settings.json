@@ -19,5 +19,10 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "preferredNotifChannel": "ghostty",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh",
+    "refreshInterval": 60
+  }
 }
