@@ -11,6 +11,7 @@ alias ls='eza --group-directories-first --icons=auto'
 alias tree='eza --tree --level=2 --icons=auto'
 alias vim='nvim'
 alias c='clear'
+alias cc="claude"
 alias ProtonDrive='cd "$HOME"/Library/CloudStorage/ProtonDrive-*-folder'
 
 # Suffix aliases
