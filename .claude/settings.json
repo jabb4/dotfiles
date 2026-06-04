@@ -11,6 +11,11 @@
     ],
     "defaultMode": "auto"
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh",
+    "refreshInterval": 60
+  },
   "enabledPlugins": {
     "github@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
@@ -19,10 +24,5 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "preferredNotifChannel": "ghostty",
-  "skipAutoPermissionPrompt": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh",
-    "refreshInterval": 60
-  }
+  "skipAutoPermissionPrompt": true
 }
