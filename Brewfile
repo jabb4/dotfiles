@@ -6,7 +6,7 @@ brew "age"
 brew "bat"                        # syntax-highlighting cat
 brew "clang-format"
 cask "claude"                     # desktop app
-cask "claude-code"                # CLI
+cask "claude-code@latest"         # CLI
 brew "cmake"
 cask "dotnet-sdk"
 brew "eza"                         # modern ls replacement
@@ -77,6 +77,9 @@ cask "qflipper"
 cask "veracrypt"
 cask "wireshark-app"
 cask "yubico-authenticator"
+
+# Cryptocurrency
+cask "trezor-suite"               # Trezor hardware-wallet companion app
 
 # System & productivity
 cask "aldente"                    # battery charge limiter
