@@ -59,6 +59,7 @@ cask "visual-studio-code"
 brew "wget"
 brew "yazi"                       # TUI file manager
 brew "yq"
+cask "zed"
 brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
@@ -82,11 +83,9 @@ cask "yubico-authenticator"
 cask "trezor-suite"               # Trezor hardware-wallet companion app
 
 # System & productivity
-cask "aldente"                    # battery charge limiter
 cask "alt-tab"
 brew "fastfetch"                  # system info / fetch tool
 brew "htop"
-cask "karabiner-elements"         # keyboard remapper (caps lock → hyper)
 cask "keyboard-maestro"
 cask "linearmouse"
 brew "mole"                       # system cleanup / monitoring / health
@@ -117,7 +116,7 @@ cask "vlc"
 cask "affinity"                   # unified photo / designer / publisher (v3)
 cask "audacity"
 cask "bambu-studio"
-cask "comfyui"
+cask "comfy"
 cask "elgato-stream-deck"
 cask "kicad"
 
