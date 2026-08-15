@@ -91,7 +91,6 @@ cask "linearmouse"
 brew "mole"                       # system cleanup / monitoring / health
 cask "pearcleaner"
 cask "raycast"
-cask "stats"
 cask "tailscale-app"
 
 # Communication
@@ -107,8 +106,6 @@ cask "zen"
 # File & media management
 cask "imageoptim"
 cask "libreoffice"
-cask "obsidian"
-cask "proton-drive"
 cask "spotify"
 cask "vlc"
 
