@@ -23,8 +23,6 @@ brew bundle --file="$DOTFILES_DIR/Brewfile"
 
 # Pre-create to prevent Stow tree-folding — see README "Layout: NO_FOLD_DIRS".
 NO_FOLD_DIRS=(
-    "$HOME/.config/tmux"      # tpm plugins
-    "$HOME/.config/karabiner" # assets/, automatic_backups/
     "$HOME/.config/yazi"      # ya pkg writes package.toml, packages/
     "$HOME/.claude"           # per-project state, settings
 )
@@ -49,31 +47,6 @@ stow --restow --target="$HOME" .
 CONDA_BIN="/opt/homebrew/Caskroom/miniconda/base/bin/conda"
 if [ -x "$CONDA_BIN" ]; then
     "$CONDA_BIN" config --set auto_activate false
-fi
-
-# --- tmux (tpm + plugins) ---------------------------------------------------
-TPM_DIR="$HOME/.config/tmux/plugins/tpm"
-if [ ! -d "$TPM_DIR" ]; then
-    echo "Cloning tpm into $TPM_DIR..."
-    git clone --depth=1 https://github.com/tmux-plugins/tpm "$TPM_DIR"
-fi
-echo "Installing/updating tmux plugins..."
-# tpm reads from the tmux server — a sessionless server self-exits, so hold one open.
-TMUX_HAD_SERVER=no
-tmux info >/dev/null 2>&1 && TMUX_HAD_SERVER=yes
-tmux new-session -d -s tpm-bootstrap
-tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.config/tmux/plugins/"
-"$TPM_DIR/bin/install_plugins"
-if [ "$TMUX_HAD_SERVER" = "no" ]; then
-    tmux kill-server 2>/dev/null || true
-else
-    tmux kill-session -t tpm-bootstrap 2>/dev/null || true
-fi
-
-# --- yazi (Catppuccin Mocha flavor) -----------------------------------------
-if [ ! -d "$HOME/.config/yazi/flavors/catppuccin-mocha.yazi" ]; then
-    echo "Installing yazi Catppuccin Mocha flavor..."
-    ya pkg add yazi-rs/flavors:catppuccin-mocha
 fi
 
 echo "Done. Open a new shell to pick up changes."
