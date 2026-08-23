@@ -31,7 +31,6 @@ brew "just"
 brew "kubeconform"                # validate Kubernetes manifests
 brew "lazygit"
 cask "miniconda"                  # conda
-brew "neovim"
 brew "node"
 brew "ollama"                     # local LLM runner
 brew "open-ocd"                   # on-chip debugger for embedded targets
@@ -51,9 +50,7 @@ cask "temurin@21"
 cask "temurin@25"
 cask "termius"                    # SSH client
 brew "tlrc"                       # tldr client (simplified man-page examples)
-brew "tmux"
 brew "typst"
-cask "unity-hub"
 brew "uv"
 cask "visual-studio-code"
 brew "wget"
@@ -116,6 +113,7 @@ cask "bambu-studio"
 cask "comfy"
 cask "elgato-stream-deck"
 cask "kicad"
+cask "unity-hub"
 
 # Gaming
 cask "nvidia-geforce-now"

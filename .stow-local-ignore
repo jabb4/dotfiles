@@ -6,3 +6,4 @@ README\.md
 install\.sh
 Brewfile
 settings\.local\.json
+.DS_Store

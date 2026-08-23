@@ -2,16 +2,6 @@
 # Styling
 # ============================================================================
 font-family = "JetBrains Mono"
-font-size = 16
-window-padding-x = 20
-window-padding-y = 20
-window-padding-balance = true
-adjust-cell-height = 35%
-background-opacity = 1
-macos-titlebar-style = hidden
-resize-overlay = never
-theme = Catppuccin Mocha
-window-colorspace = "display-p3"
 
 # ============================================================================
 # Behavior
@@ -22,46 +12,8 @@ copy-on-select = clipboard
 quit-after-last-window-closed = true
 
 # ============================================================================
-# Keybindings (tmux via Ghostty — skip the prefix)
+# Keybindings
 # ============================================================================
-# Cmd + T → new tmux window
-keybind = super+t=text:\x01c
-
-# Cmd + 1..9 → select window N
-keybind = super+digit_1=text:\x011
-keybind = super+digit_2=text:\x012
-keybind = super+digit_3=text:\x013
-keybind = super+digit_4=text:\x014
-keybind = super+digit_5=text:\x015
-keybind = super+digit_6=text:\x016
-keybind = super+digit_7=text:\x017
-keybind = super+digit_8=text:\x018
-keybind = super+digit_9=text:\x019
-
-# Cmd + D / Cmd + Shift + D → split horizontal / vertical
-keybind = super+d=text:\x01|
-keybind = super+shift+d=text:\x01-
-
-# Cmd + W → kill pane
-keybind = super+w=text:\x01x
-
-# Cmd + F → zoom pane
-keybind = super+f=text:\x01z
-
-# Cmd + Arrow → select pane in direction
-keybind = super+up=text:\x01\x1b[A
-keybind = super+down=text:\x01\x1b[B
-keybind = super+left=text:\x01\x1b[D
-keybind = super+right=text:\x01\x1b[C
-
-# Cmd + S → session picker
-keybind = super+s=text:\x01s
-
-# Cmd + N → new session (name prompt)
-keybind = super+n=text:\x01S
 
 # Cmd + Z → zsh line-editor undo
 keybind = super+z=text:\x1f
-
-# Cmd + H → fzf history search (Ctrl-R), overriding macOS Hide
-keybind = super+h=text:\x12

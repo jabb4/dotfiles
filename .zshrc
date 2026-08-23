@@ -4,15 +4,13 @@ fastfetch
 export PATH="$HOME/.local/bin:$PATH"
 
 # Editor
-export EDITOR=nvim
+export EDITOR=zed
 
 # Aliases
 alias ls='eza --group-directories-first --icons=auto'
 alias tree='eza --tree --level=2 --icons=auto'
-alias vim='nvim'
 alias c='clear'
 alias cc="claude"
-alias ProtonDrive='cd "$HOME"/Library/CloudStorage/ProtonDrive-*-folder'
 
 # Suffix aliases
 alias -s md="bat"
@@ -30,10 +28,6 @@ zle -N zle-keymap-select
 # Cmd+Z (Ghostty sends Ctrl-_) → ZLE undo.
 bindkey -M viins '^_' undo
 bindkey -M vicmd '^_' undo
-
-# Refresh tmux status bar every command
-precmd_functions+=(__tmux_refresh_status)
-__tmux_refresh_status() { [[ -n "$TMUX" ]] && tmux refresh-client -S }
 
 # Misc settings
 setopt interactivecomments # allow comments in interactive mode
