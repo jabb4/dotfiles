@@ -2,6 +2,9 @@
 # Styling
 # ============================================================================
 font-family = "JetBrains Mono"
+window-padding-x = 20
+window-padding-y = 10
+window-padding-balance = true
 
 # ============================================================================
 # Behavior
