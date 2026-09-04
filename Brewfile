@@ -80,6 +80,7 @@ cask "yubico-authenticator"
 cask "trezor-suite"               # Trezor hardware-wallet companion app
 
 # System & productivity
+cask "vorssaint"
 cask "alt-tab"
 brew "fastfetch"                  # system info / fetch tool
 brew "htop"
