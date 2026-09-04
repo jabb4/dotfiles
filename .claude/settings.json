@@ -27,5 +27,6 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "preferredNotifChannel": "ghostty",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "tui": "fullscreen"
 }
