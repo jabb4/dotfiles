@@ -89,7 +89,6 @@ cask "linearmouse"
 brew "mole"                       # system cleanup / monitoring / health
 cask "pearcleaner"
 cask "raycast"
-cask "tailscale-app"
 
 # Communication
 cask "discord"
