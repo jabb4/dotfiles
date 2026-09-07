@@ -94,6 +94,7 @@ cask "raycast"
 cask "discord"
 cask "signal"
 cask "slack"
+cask "microsoft-teams"
 
 # Browsers
 cask "brave-browser"
