@@ -70,14 +70,12 @@ zstyle ':completion:*' insert-tab false   # empty-line Tab opens fzf-tab instead
 
 # fzf-tab
 source "/opt/homebrew/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh"
-# Preview: dirs → eza tree, files → bat, commands → tldr/man
+# Preview: dirs → eza tree, files → bat, commands → man
 zstyle ':fzf-tab:complete:*' fzf-preview '
 if [[ -d $realpath ]]; then
   eza --tree --level=2 --color=always --icons=auto "$realpath" | head -200
 elif [[ -f $realpath ]]; then
   bat -n --color=always --line-range :500 "$realpath"
-elif tldr --color always "$word" 2>/dev/null; then
-  :
 elif man -w "$word" >/dev/null 2>&1; then
   man "$word" 2>/dev/null | col -bx | bat -p -l man --color=always
 else

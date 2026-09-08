@@ -1,8 +1,0 @@
-[mgr]
-show_hidden   = false
-sort_dir_first = true
-linemode      = "size"
-
-[preview]
-max_width  = 1000
-max_height = 1000

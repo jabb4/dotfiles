@@ -23,8 +23,7 @@ brew bundle --file="$DOTFILES_DIR/Brewfile"
 
 # Pre-create to prevent Stow tree-folding — see README "Layout: NO_FOLD_DIRS".
 NO_FOLD_DIRS=(
-    "$HOME/.config/yazi"      # ya pkg writes package.toml, packages/
-    "$HOME/.claude"           # per-project state, settings
+    "$HOME/.config/openlogi"  # writes locks, agent.sock, rolling config backups
 )
 for dir in "${NO_FOLD_DIRS[@]}"; do
     if [ -L "$dir" ]; then

@@ -2,11 +2,12 @@
 # Usage: `brew bundle --file=~/dotfiles/Brewfile` (or run ./install.sh).
 
 # Development
-brew "age"
 brew "bat"                        # syntax-highlighting cat
 brew "clang-format"
 cask "claude"                     # desktop app
 cask "claude-code@latest"         # CLI
+cask "chatgpt"                    # desktop app
+cask "codex"                      # CLI
 brew "cmake"
 cask "dotnet-sdk"
 brew "eza"                         # modern ls replacement
@@ -20,15 +21,12 @@ cask "ghostty"                    # Terminal
 cask "github"                     # GitHub Desktop
 brew "git"
 brew "git-filter-repo"            # For deleting information from git history
-brew "gitmux"                     # git status block for tmux status bar
 brew "go"
-brew "helm"
-brew "hf"                         # Hugging Face CLI (replaces `huggingface-cli`)
+brew "hf"                         # Hugging Face CLI
 brew "imagemagick"
 cask "intellij-idea"
 brew "jq"
 brew "just"
-brew "kubeconform"                # validate Kubernetes manifests
 brew "lazygit"
 cask "miniconda"                  # conda
 brew "node"
@@ -42,21 +40,17 @@ brew "poppler"                    # pdf reading tool
 brew "python"
 cask "raspberry-pi-imager"
 brew "ripgrep"
-brew "sops"
 brew "starship"
 brew "stow"                       # symlink manager
-brew "talosctl"
 cask "temurin@21"
 cask "temurin@25"
 cask "termius"                    # SSH client
-brew "tlrc"                       # tldr client (simplified man-page examples)
 brew "typst"
 brew "uv"
 cask "visual-studio-code"
 brew "wget"
-brew "yazi"                       # TUI file manager
 brew "yq"
-cask "zed"
+cask "zed"                        # Code editor
 brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
