@@ -84,10 +84,9 @@ cask "vorssaint"
 cask "alt-tab"
 brew "fastfetch"                  # system info / fetch tool
 brew "htop"
-cask "keyboard-maestro"
 cask "linearmouse"
+cask "openlogi"                   # Configures Logitech hardware
 brew "mole"                       # system cleanup / monitoring / health
-cask "pearcleaner"
 cask "raycast"
 
 # Communication
@@ -99,7 +98,6 @@ cask "microsoft-teams"
 # Browsers
 cask "brave-browser"
 cask "tor-browser"
-cask "zen"
 
 # File & media management
 cask "imageoptim"
